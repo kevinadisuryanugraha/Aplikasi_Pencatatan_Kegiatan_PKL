@@ -1,24 +1,13 @@
 <?php
 require_once 'db.php';
 
-// Define nama tabel dan kolom sebagai konstanta
 define('TABLE_NAME', 'jadwal_pkl');
-define('COL_ID', 'id');
-define('COL_TANGGAL', 'tanggal');
-define('COL_STATUS_KEHADIRAN', 'status_kehadiran');
-define('COL_WAKTU_DATANG', 'waktu_datang');
-define('COL_WAKTU_PULANG', 'waktu_pulang');
-define('COL_NAMA_PEKERJAAN', 'nama_pekerjaan');
-define('COL_MULAI_PEKERJAAN', 'mulai_pekerjaan');
-define('COL_SELESAI_PEKERJAAN', 'selesai_pekerjaan');
-define('COL_URAIAN_PEKERJAAN', 'uraian_pekerjaan');
-define('COL_KENDALA', 'kendala');
 
 function tambah_data($tanggal, $status_kehadiran, $waktu_datang, $waktu_pulang, $nama_pekerjaan, $mulai_pekerjaan, $selesai_pekerjaan, $uraian_pekerjaan, $kendala)
 {
     $db = connect_db();
     $query = "INSERT INTO " . TABLE_NAME . " 
-              (" . COL_TANGGAL . ", " . COL_STATUS_KEHADIRAN . ", " . COL_WAKTU_DATANG . ", " . COL_WAKTU_PULANG . ", " . COL_NAMA_PEKERJAAN . ", " . COL_MULAI_PEKERJAAN . ", " . COL_SELESAI_PEKERJAAN . ", " . COL_URAIAN_PEKERJAAN . ", " . COL_KENDALA . ") 
+              (tanggal, status_kehadiran, waktu_datang, waktu_pulang, nama_pekerjaan, mulai_pekerjaan, selesai_pekerjaan, uraian_pekerjaan, kendala) 
               VALUES (:tanggal, :status_kehadiran, :waktu_datang, :waktu_pulang, :nama_pekerjaan, :mulai_pekerjaan, :selesai_pekerjaan, :uraian_pekerjaan, :kendala)";
 
     $stmt = $db->prepare($query);
@@ -57,7 +46,7 @@ function ambil_semua_catatan()
 function ambil_catatan_by_id($id)
 {
     $db = connect_db();
-    $query = "SELECT * FROM " . TABLE_NAME . " WHERE " . COL_ID . " = :id";
+    $query = "SELECT * FROM " . TABLE_NAME . " WHERE id = :id";
     $stmt = $db->prepare($query);
     $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
     $result = $stmt->execute();
@@ -69,10 +58,10 @@ function update_catatan($id, $tanggal, $status_kehadiran, $waktu_datang, $waktu_
 {
     $db = connect_db();
     $query = "UPDATE " . TABLE_NAME . " 
-              SET " . COL_TANGGAL . " = :tanggal, " . COL_STATUS_KEHADIRAN . " = :status_kehadiran, " . COL_WAKTU_DATANG . " = :waktu_datang, " . COL_WAKTU_PULANG . " = :waktu_pulang, 
-              " . COL_NAMA_PEKERJAAN . " = :nama_pekerjaan, " . COL_MULAI_PEKERJAAN . " = :mulai_pekerjaan, " . COL_SELESAI_PEKERJAAN . " = :selesai_pekerjaan, 
-              " . COL_URAIAN_PEKERJAAN . " = :uraian_pekerjaan, " . COL_KENDALA . " = :kendala
-              WHERE " . COL_ID . " = :id";
+              SET tanggal = :tanggal, status_kehadiran = :status_kehadiran, waktu_datang = :waktu_datang, waktu_pulang = :waktu_pulang, 
+              nama_pekerjaan = :nama_pekerjaan, mulai_pekerjaan = :mulai_pekerjaan, selesai_pekerjaan = :selesai_pekerjaan, 
+              uraian_pekerjaan = :uraian_pekerjaan, kendala = :kendala
+              WHERE id = :id";
 
     $stmt = $db->prepare($query);
 
@@ -94,10 +83,9 @@ function update_catatan($id, $tanggal, $status_kehadiran, $waktu_datang, $waktu_
 function hapus_catatan($id)
 {
     $db = connect_db();
-    $query = "DELETE FROM " . TABLE_NAME . " WHERE " . COL_ID . " = :id";
+    $query = "DELETE FROM " . TABLE_NAME . " WHERE id = :id";
     $stmt = $db->prepare($query);
 
-    // Binding parameter
     $stmt->bindValue(':id', $id, SQLITE3_INTEGER);
 
     return $stmt->execute();

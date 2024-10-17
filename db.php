@@ -1,8 +1,11 @@
 <?php
 
+// Define nama database sebagai konstanta
+define('DB_NAME', 'db_pencatatan_pkl.db');
+
 function connect_db()
 {
-    $db = new SQLite3('db_pencatatan_pkl.db');
+    $db = new SQLite3(DB_NAME);
     return $db;
 }
 

@@ -39,7 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="date" id="tanggal" name="tanggal" required>
 
             <label for="status_kehadiran">Status Kehadiran:</label>
-            <input type="text" id="status_kehadiran" name="status_kehadiran" required>
+            <select id="status_kehadiran" name="status_kehadiran" required>
+                <option value="Hadir">Hadir</option>
+                <option value="Izin">Izin</option>
+                <option value="Sakit">Sakit</option>
+                <option value="Alfa">Alfa</option>
+            </select>
+
 
             <label for="waktu_datang">Waktu Datang:</label>
             <input type="time" id="waktu_datang" name="waktu_datang" required>
